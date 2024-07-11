@@ -1,1 +1,17 @@
-<p>converter works!</p>
+<div class="converter">
+    <div>
+      <input type="number" [(ngModel)]="fromAmount" (input)="convertFrom()" />
+      <select [(ngModel)]="fromCurrency" (change)="onFromCurrencyChange()">
+        <option *ngFor="let currency of ['UAH', 'USD', 'EUR']" [value]="currency">{{ currency }}</option>
+      </select>
+    </div>
+    <div>
+      <input type="number" [(ngModel)]="toAmount" (input)="convertTo()" />
+      <select [(ngModel)]="toCurrency" (change)="onToCurrencyChange()">
+        <option *ngFor="let currency of ['UAH', 'USD', 'EUR']" [value]="currency">{{ currency }}</option>
+      </select>
+    </div>
+   
+
+  </div>
+  

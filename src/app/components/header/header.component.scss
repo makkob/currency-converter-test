@@ -1,0 +1,50 @@
+@import "../../../styles.scss";
+
+header {
+  background-color: $primary-color;
+  color: $text-secondary-color;
+  padding: 15px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+
+  @media (max-width: 768px) {
+    padding: 10px 5px;
+    height: auto;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+header h1 {
+  margin: 0;
+  color: $text-secondary-color;
+  font-weight: 400;
+  letter-spacing: 3px;
+
+  @media (max-width: 768px) {
+    font-size: 1.6em;
+    letter-spacing: 2px;
+
+  }
+}
+
+header div {
+  font-size: 1.2em;
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+    margin-top: 5px;
+  }
+}
+
+div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}

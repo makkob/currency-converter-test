@@ -1,0 +1,14 @@
+@import '../../../styles.scss';
+
+footer {
+//   background-color: $primary-color;
+  color: $text-color;
+  text-align: center;
+  padding: 10px 10px;
+  height: 40px;
+  font-family: $font-family;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+//   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
