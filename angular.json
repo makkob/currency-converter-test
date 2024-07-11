@@ -38,6 +38,8 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/currency-converter-test/", 
+              "deployUrl": "/currency-converter-test/", 
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
