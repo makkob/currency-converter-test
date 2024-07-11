@@ -1,0 +1,144 @@
+// Переменные
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$text-color: #343a40;
+$background-color: #f8f9fa;
+$border-color: #dee2e6;
+$accent-color: #ffc107;
+$success-color: #28a745;
+$info-color: #17a2b8;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+$font-family: 'Arial, sans-serif';
+
+// Миксины
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Глобальные стили
+body {
+  margin: 0;
+  font-family: $font-family;
+  background-color: $background-color;
+  color: $text-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $primary-color;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+button {
+  font-family: $font-family;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &.primary {
+    background-color: $primary-color;
+    color: white;
+  }
+
+  &.secondary {
+    background-color: $secondary-color;
+    color: white;
+  }
+
+  &.accent {
+    background-color: $accent-color;
+    color: white;
+  }
+
+  &.success {
+    background-color: $success-color;
+    color: white;
+  }
+
+  &.info {
+    background-color: $info-color;
+    color: white;
+  }
+
+  &.warning {
+    background-color: $warning-color;
+    color: white;
+  }
+
+  &.danger {
+    background-color: $danger-color;
+    color: white;
+  }
+}
+
+// Границы и фоны
+.border {
+  border: 1px solid $border-color;
+}
+
+.bg-primary {
+  background-color: $primary-color;
+}
+
+.bg-secondary {
+  background-color: $secondary-color;
+}
+
+.bg-accent {
+  background-color: $accent-color;
+}
+
+.bg-success {
+  background-color: $success-color;
+}
+
+.bg-info {
+  background-color: $info-color;
+}
+
+.bg-warning {
+  background-color: $warning-color;
+}
+
+.bg-danger {
+  background-color: $danger-color;
+}
+
+.text-primary {
+  color: $primary-color;
+}
+
+.text-secondary {
+  color: $secondary-color;
+}
+
+.text-accent {
+  color: $accent-color;
+}
+
+.text-success {
+  color: $success-color;
+}
+
+.text-info {
+  color: $info-color;
+}
+
+.text-warning {
+  color: $warning-color;
+}
+
+.text-danger {
+  color: $danger-color;
+}
