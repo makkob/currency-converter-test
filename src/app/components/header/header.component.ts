@@ -1,20 +1,27 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
   standalone: true,
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  rates: { [key: string]: number } = {};  
+  rates: { [key: string]: number } = {};
 
-  constructor(private currencyService: CurrencyService) { }
+  constructor(private currencyService: CurrencyService) {}
 
   ngOnInit(): void {
-    this.currencyService.getRates().subscribe(data => {
-      this.rates = data.rates;
-    });
+    this.currencyService.rates$.subscribe(
+      (data: { [key: string]: number }) => {
+        this.rates = data;
+      },
+      (error: unknown) => {
+        console.error('Error fetching rates:', error);
+      }
+    );
   }
 }
+

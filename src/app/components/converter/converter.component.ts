@@ -1,37 +1,51 @@
-import { Component } from '@angular/core';
-import { CurrencyService } from '../../services/currency.service';
+
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   selector: 'app-converter',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './converter.component.html',
-  styleUrl: './converter.component.scss'
+  styleUrls: ['./converter.component.scss']
 })
-export class ConverterComponent {
-  rates: any = {};
-  fromCurrency = 'UAH';
-  toCurrency = 'USD';
-  fromAmount!: number ;
-  toAmount!: number;
+export class ConverterComponent implements OnInit {
+  fromAmount: number = 0;
+  toAmount: number = 0;
+  fromCurrency: string = 'UAH';
+  toCurrency: string = 'USD';
+  rates: { [key: string]: number } = {};
 
-  constructor(private currencyService: CurrencyService) { }
+  constructor(private currencyService: CurrencyService) {}
 
   ngOnInit(): void {
-    this.currencyService.getRates().subscribe(data => {
-      this.rates = data.rates;
-      this.convertFrom();
-    });
+    this.currencyService.rates$.subscribe(
+      (data: { [key: string]: number }) => {
+        this.rates = data;
+        this.convertFrom(); 
+      },
+      (error: unknown) => {
+        console.error('Error fetching rates:', error);
+      }
+    );
   }
 
   convertFrom(): void {
-    this.toAmount = this.fromAmount * (this.rates[this.toCurrency] / this.rates[this.fromCurrency]);
+    if (this.rates[this.fromCurrency] && this.rates[this.toCurrency]) {
+      this.toAmount = this.fromAmount * (this.rates[this.toCurrency] / this.rates[this.fromCurrency]);
+    } else {
+      this.toAmount = 0; 
+    }
   }
 
   convertTo(): void {
-    this.fromAmount = this.toAmount * (this.rates[this.fromCurrency] / this.rates[this.toCurrency]);
+    if (this.rates[this.fromCurrency] && this.rates[this.toCurrency]) {
+      this.fromAmount = this.toAmount * (this.rates[this.fromCurrency] / this.rates[this.toCurrency]);
+    } else {
+      this.fromAmount = 0; 
+    }
   }
 
   onFromCurrencyChange(): void {
@@ -42,3 +56,5 @@ export class ConverterComponent {
     this.convertFrom();
   }
 }
+
+

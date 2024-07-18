@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/my-angular-project",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -28,7 +28,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "public"
               }
             ],
             "styles": [
@@ -38,8 +39,8 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "/currency-converter-test/", 
-              "deployUrl": "/currency-converter-test/", 
+              "baseHref": "/currency-converter-test/",
+              "deployUrl": "/currency-converter-test/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -61,11 +62,9 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "30kB",
-                  "maximumError": "50kB"    
+                  "maximumError": "50kB"
                 }
               ]
-              
-              
             },
             "development": {
               "optimization": false,
@@ -102,7 +101,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "public"
               }
             ],
             "styles": [
