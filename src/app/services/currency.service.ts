@@ -1,33 +1,36 @@
-
 import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject, Subscription, throwError } from 'rxjs';
+import { Observable, BehaviorSubject,  throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { ExchangeRates, CurrencyRates } from '../models/exchange-rates';
 
-interface ExchangeRates {
-  rates: { [key: string]: number };
-}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrencyService implements OnDestroy {
-  private ratesSubject: BehaviorSubject<{ [key: string]: number }> = new BehaviorSubject<{ [key: string]: number }>({});
-  rates$: Observable<{ [key: string]: number }> = this.ratesSubject.asObservable();
+  // BehaviorSubject для зберігання курсів валют
+  private ratesSubject: BehaviorSubject<CurrencyRates> = new BehaviorSubject<CurrencyRates>({});
+  // Observable для доступу до курсів валют з інших компонентів
+  rates$: Observable<CurrencyRates> = this.ratesSubject.asObservable();
+  // Змінна для зберігання ідентифікатора інтервалу оновлення
   private refreshIntervalId: number | null = null;
 
   constructor(private http: HttpClient) {
-    this.fetchRates();
-    this.startAutoRefresh();
+    this.fetchRates(); // Завантаження курсів валют при створенні сервісу
+    this.startAutoRefresh(); // Початок автоматичного оновлення курсів
   }
 
-  getRates(): Observable<{ [key: string]: number }> {
+  // Метод для отримання курсів валют з API
+  getRates(): Observable<CurrencyRates> {
     return this.http.get<ExchangeRates>('https://api.exchangerate-api.com/v4/latest/UAH').pipe(
-      map((data: ExchangeRates) => data.rates),
-      tap((rates: { [key: string]: number }) => {
-        this.ratesSubject.next(rates);
+      map((data: ExchangeRates) => data.rates), // Мапування отриманих даних до формату курсів
+      tap((rates: CurrencyRates) => {
+        this.ratesSubject.next(rates); // Оновлення BehaviorSubject новими курсами
       }),
       catchError((error: unknown) => {
+        // Обробка помилок
         if (error instanceof Error) {
           console.error('Error fetching rates:', error.message);
         } else {
@@ -38,22 +41,20 @@ export class CurrencyService implements OnDestroy {
     );
   }
 
+  // Метод для завантаження курсів валют і оновлення BehaviorSubject
   fetchRates(): void {
     this.getRates().subscribe();
   }
 
-  startAutoRefresh(interval: number = 20000): void {
+  // Метод для запуску автоматичного оновлення курсів з певним інтервалом
+  startAutoRefresh(interval: number = 20000): void { // Інтервал за замовчуванням - 20 секунд
     this.refreshIntervalId = window.setInterval(() => this.fetchRates(), interval);
   }
 
+  // Метод, що викликається при знищенні сервісу, для очищення інтервалу
   ngOnDestroy(): void {
     if (this.refreshIntervalId !== null) {
-      clearInterval(this.refreshIntervalId);
+      clearInterval(this.refreshIntervalId); // Очищення інтервалу
     }
   }
 }
-
-
-
-
-

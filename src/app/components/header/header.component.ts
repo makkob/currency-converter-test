@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CurrencyService } from '../../services/currency.service';
+import { CurrencyRates } from '../../models/exchange-rates';
 
 @Component({
   selector: 'app-header',
@@ -9,11 +10,12 @@ import { CurrencyService } from '../../services/currency.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  rates: { [key: string]: number } = {};
+  rates: CurrencyRates = {};
 
   constructor(private currencyService: CurrencyService) {}
 
   ngOnInit(): void {
+    // Підписка на поточні курси валют
     this.currencyService.rates$.subscribe(
       (data: { [key: string]: number }) => {
         this.rates = data;
