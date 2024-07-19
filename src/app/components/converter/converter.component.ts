@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CurrencyService } from '../../services/currency.service';
 import { CurrencyRates } from '../../models/exchange-rates';
@@ -7,7 +7,7 @@ import { CurrencyRates } from '../../models/exchange-rates';
 @Component({
   selector: 'app-converter',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [NgFor, FormsModule],
   templateUrl: './converter.component.html',
   styleUrls: ['./converter.component.scss']
 })
